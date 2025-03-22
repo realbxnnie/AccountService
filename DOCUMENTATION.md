@@ -55,7 +55,7 @@ setDiamonds(Player, 12345)
 ```
 
 
-`AccountStore:UpdateAccountAsync(Key: any, Data: {}): nil` *method*\
+`AccountStore:UpdateAccountAsync(Key: any, Data: {}): nil` *method*
 > [!WARNING]  
 > This method is deprecated and is not recommended for future use. Use `AccountStore:SetAccountAsync(Key: any, Value: any)` instead.
 
