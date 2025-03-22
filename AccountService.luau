@@ -4,7 +4,7 @@
 		Authors:
 		@realbxnnie : Creating the module
 	
-	// 03/16/2025
+	// 03/22/2025
 ]]
 
 ------------------------------------------------------------------------------
@@ -38,6 +38,16 @@ local DataStoreService = game:GetService("DataStoreService")
 AccountStore.__index = AccountStore
 Account.__index = Account
 
+local function DeepCopy(original)
+	local copy = {}
+	for k, v in pairs(original) do
+		if type(v) == 'table' then
+			v = DeepCopy(v)
+		end
+		copy[k] = v
+	end
+	return copy
+end
 
 -- <strong>Sets Account's Data.</strong>
 -- Example:
@@ -69,6 +79,14 @@ end
 -- Example:
 -- <code>AccountStore:AddAccountAsync(Player.UserId)</code>
 function AccountStore:AddAccountAsync(Key: any): any
+	local function add(K, I, V)
+		if typeof(V) == "table" then
+			DeepCopy(V)
+		else
+			self.Accounts[K][I] = V
+		end
+	end
+	
 	if not self.__datastore:GetAsync(Key) then
 		self.__datastore:SetAsync(Key, self.AccountDataTemplate)
 		self.Accounts[Key] = {
@@ -82,7 +100,7 @@ function AccountStore:AddAccountAsync(Key: any): any
 		} 
 		for Index, Value in ipairs(self.AccountDataTemplate) do
 			if not self.Accounts[Key][Index] then
-				self.Accounts[Key][Index] = Value
+				add(Key, Index, Value)
 			end
 		end
 	end
