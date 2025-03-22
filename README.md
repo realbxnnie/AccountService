@@ -4,6 +4,7 @@ A Simple DataStoreService wrapper with session backups and session locking.
 **Why AccountService?**
 * Easy to use
 * Asynchronous
+* [Documented](https://github.com/realbxnnie/AccountService/blob/main/DOCUMENTATION.md)
 * Session locking & Session backuping
 
 **Example of use:**
